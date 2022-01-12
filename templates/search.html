@@ -1,0 +1,42 @@
+{% extends "root.html" %}
+{% block title %} Search {% endblock %}
+{% block head %}
+    {#    <script type="module" src="/static/javascript/productScript.js" async></script>#}
+{% endblock %}
+{% block content %}
+    {% if products %}
+        <div class="products-container search" style="display: flex">
+
+        {% for product in products %}
+            <div class="product-card">
+
+                <img class="product-image" src="/static/images/product_{{ product.id }}.jpg" alt="">
+                <a href="{{ url_for("product_route", product_id=product.id) }}">
+                    <div class="card-header">
+                        <h4>{{ product.name }}</h4>
+                    </div>
+                </a>
+                <div class="card-body">
+                    <div class="card-text">
+                        {% if product.actual_price != product.default_price %}
+                        <p class="lead"><strike>{{product.default_price}} Lei</strike></p>
+                        {% endif %}
+                        <h1 class="lead price">{{ product.actual_price }} Lei</h1>
+
+                    </div>
+                    <div class="card-text">
+                        <button id="{{ product.id }}" class="btn btn-success btn-add-product">Add to cart
+                        </button>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+</div>
+    <div id="products-collection">
+    </div>
+    </div>
+
+
+{% endblock %}
